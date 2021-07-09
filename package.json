@@ -1,6 +1,7 @@
 {
   "name": "isomorphic-style-loader-react-17",
-  "version": "5.2.1",
+  "private": true,
+  "version": "5.2.4",
   "description": "CSS style loader for Webpack optimized for critical path CSS rendering and isomoprhic web apps",
   "repository": "kriasoft/isomorphic-style-loader",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
@@ -66,6 +67,7 @@
     "react-dom": "^16.0.0 || ^17.0.0"
   },
   "scripts": {
+    "prepare": "node tools/build",
     "lint": "node tools/lint",
     "test": "node tools/test",
     "build": "node tools/build",
