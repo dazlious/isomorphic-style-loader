@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-style-loader-react-17",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "CSS style loader for Webpack optimized for critical path CSS rendering and isomoprhic web apps",
   "repository": "kriasoft/isomorphic-style-loader",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
