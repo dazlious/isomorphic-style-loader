@@ -19,33 +19,33 @@ const pkg = require('../package.json')
 // The source files to be compiled by Rollup
 const files = [
   {
-    input: 'dist/src/index.js',
+    input: 'src/index.js',
     output: 'dist/index.js',
     format: 'cjs',
     external: ['loader-utils'],
   },
   {
-    input: 'dist/src/withStyles.js',
+    input: 'src/withStyles.js',
     output: 'dist/withStyles.js',
     format: 'cjs',
-    external: ['react', 'hoist-non-react-statics', path.resolve('dist/src/StyleContext.js')],
-    paths: { [path.resolve('dist/src/StyleContext.js')]: './StyleContext.js' },
+    external: ['react', 'hoist-non-react-statics', path.resolve('src/StyleContext.js')],
+    paths: { [path.resolve('src/StyleContext.js')]: './StyleContext.js' },
   },
   {
-    input: 'dist/src/useStyles.js',
+    input: 'src/useStyles.js',
     output: 'dist/useStyles.js',
     format: 'cjs',
-    external: ['react', path.resolve('dist/src/StyleContext.js')],
-    paths: { [path.resolve('dist/src/StyleContext.js')]: './StyleContext.js' },
+    external: ['react', path.resolve('src/StyleContext.js')],
+    paths: { [path.resolve('src/StyleContext.js')]: './StyleContext.js' },
   },
   {
-    input: 'dist/src/StyleContext.js',
+    input: 'src/StyleContext.js',
     output: 'dist/StyleContext.js',
     format: 'cjs',
     external: ['react'],
   },
   {
-    input: 'dist/src/insertCss.js',
+    input: 'src/insertCss.js',
     output: 'dist/insertCss.js',
     format: 'cjs',
   },
@@ -57,7 +57,6 @@ async function build() {
 
   // Copy source code, readme and license
   await Promise.all([
-    fs.copy('src', 'dist/src'),
     fs.copy('README.md', 'dist/README.md'),
     fs.copy('LICENSE.txt', 'dist/LICENSE.txt'),
   ])
