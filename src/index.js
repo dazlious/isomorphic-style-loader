@@ -7,21 +7,20 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import { stringifyRequest, getOptions } from 'loader-utils'
-
 module.exports = function loader() {}
 module.exports.pitch = function pitch(request) {
   if (this.cacheable) {
     this.cacheable()
   }
 
+  const stringifyRequest = (req) => JSON.stringify(this.utils.contextify(this.context, req))
   const insertCss = require.resolve('./insertCss.js')
-  let { getCss } = getOptions(this)
+  let { getCss } = this.getOptions()
   getCss = typeof getCss === 'function' ? getCss : (css) => css
   return `
     var getCss = ${getCss.toString()};
-    var css = getCss(require(${stringifyRequest(this, `!!${request}`)}));
-    var insertCss = require(${stringifyRequest(this, `!${insertCss}`)});
+    var css = getCss(require(${stringifyRequest(`!!${request}`)}));
+    var insertCss = require(${stringifyRequest(`!${insertCss}`)});
     var content = typeof css === 'string' ? [[module.id, css, '']] : css;
 
     exports = module.exports = css.locals || {};
@@ -37,8 +36,8 @@ module.exports.pitch = function pitch(request) {
     // Only activated in browser context
     if (module.hot && typeof window !== 'undefined' && window.document) {
       var removeCss = function() {};
-      module.hot.accept(${stringifyRequest(this, `!!${request}`)}, function() {
-        css = getCss(require(${stringifyRequest(this, `!!${request}`)}));
+      module.hot.accept(${stringifyRequest(`!!${request}`)}, function() {
+        css = getCss(require(${stringifyRequest(`!!${request}`)}));
         content = typeof css === 'string' ? [[module.id, css, '']] : css;
         removeCss = insertCss(content, { replace: true });
       });

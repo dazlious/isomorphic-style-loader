@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const createUniqueIdentifiers = require('./createUniqueIdentifiers')
+import createUniqueIdentifiers from './createUniqueIdentifiers'
 
 const inserted = {}
 
@@ -103,4 +103,4 @@ function insertCss(styles, { replace = false, prepend = false, prefix = 's' } = 
   return removeCss.bind(null, ids)
 }
 
-module.exports = insertCss
+export default insertCss
