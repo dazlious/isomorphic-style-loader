@@ -7,13 +7,10 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import { useContext, useEffect } from 'react'
+import { useContext, useLayoutEffect } from 'react'
 import StyleContext from './StyleContext'
 
-// To detect if it's in SSR process or in browser. Wrapping with
-// the function makes rollup's replacement of "this" avoidable
-// eslint-disable-next-line func-names
-const isBrowser = (() => this && typeof this.window === 'object')()
+const isBrowser = typeof window !== 'undefined'
 
 function useStyles(...styles) {
   const { insertCss } = useContext(StyleContext)
@@ -25,7 +22,7 @@ function useStyles(...styles) {
     }
   }
   if (isBrowser) {
-    useEffect(runEffect, [])
+    useLayoutEffect(runEffect, [])
   } else {
     runEffect()
   }
