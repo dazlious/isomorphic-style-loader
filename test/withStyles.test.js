@@ -8,7 +8,6 @@
  */
 
 import React, { Component, act } from 'react'
-import createClass from 'create-react-class'
 import { createRoot } from 'react-dom/client'
 import withStyles from '../src/withStyles'
 
@@ -52,26 +51,15 @@ describe('withStyles(...styles)(WrappedComponent)', () => {
       ).displayName,
     ).toBe('WithStyles(Foo)')
 
-    expect(
-      withStyles('')(
-        createClass({
-          displayName: 'Bar',
-          render() {
-            return <div />
-          },
-        }),
-      ).displayName,
-    ).toBe('WithStyles(Bar)')
+    function Foo() {
+      return <div />
+    }
+    Foo.displayName = 'Bar'
+    expect(withStyles('')(Foo).displayName).toBe('WithStyles(Bar)')
 
-    expect(
-      withStyles('')(
-        createClass({
-          render() {
-            return <div />
-          },
-        }),
-      ).displayName,
-    ).toBe('WithStyles(Component)')
+    // the array element avoids function name inference, leaving .name empty
+    const AnonymousComponent = [() => <div />][0]
+    expect(withStyles('')(AnonymousComponent).displayName).toBe('WithStyles(Component)')
   })
 
   it('Should expose the component with styles as ComposedComponent', () => {
