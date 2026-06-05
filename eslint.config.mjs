@@ -39,6 +39,7 @@ export default [
     rules: {
       'react/jsx-filename-extension': 'off',
       'react/jsx-props-no-spreading': 'off',
+      'react/prop-types': 'off',
     },
   },
 ]

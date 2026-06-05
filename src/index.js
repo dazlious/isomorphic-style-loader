@@ -13,7 +13,6 @@ module.exports.pitch = function pitch(request) {
     this.cacheable()
   }
 
-  // Requires webpack >= 5
   const stringifyRequest = (req) => JSON.stringify(this.utils.contextify(this.context, req))
   const insertCss = require.resolve('./insertCss.js')
   let { getCss } = this.getOptions()

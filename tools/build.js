@@ -23,7 +23,7 @@ const files = [
     input: 'dist/src/withStyles.js',
     output: 'dist/withStyles.js',
     format: 'cjs',
-    external: ['react', 'hoist-non-react-statics', path.resolve('dist/src/StyleContext.js')],
+    external: ['react', path.resolve('dist/src/StyleContext.js')],
     paths: { [path.resolve('dist/src/StyleContext.js')]: './StyleContext.js' },
   },
   {
@@ -50,7 +50,7 @@ async function build() {
   // Clean up the output directory
   await fs.emptyDir('dist')
 
-  // Copy source code (referenced by the generated source maps)
+  // Copy source code
   await fs.copy('src', 'dist/src')
 
   // Compile source code into a distributable format with Babel

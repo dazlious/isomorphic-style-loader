@@ -46,10 +46,6 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "hoist-non-react-statics": "^3.0.0",
-    "prop-types": "^15.7.2"
-  },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"

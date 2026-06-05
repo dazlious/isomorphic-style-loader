@@ -57,7 +57,6 @@ describe('withStyles(...styles)(WrappedComponent)', () => {
     Foo.displayName = 'Bar'
     expect(withStyles('')(Foo).displayName).toBe('WithStyles(Bar)')
 
-    // the array element avoids function name inference, leaving .name empty
     const AnonymousComponent = [() => <div />][0]
     expect(withStyles('')(AnonymousComponent).displayName).toBe('WithStyles(Component)')
   })
@@ -71,29 +70,5 @@ describe('withStyles(...styles)(WrappedComponent)', () => {
 
     const decorated = withStyles('')(Container)
     expect(decorated.ComposedComponent).toBe(Container)
-  })
-
-  it('Hoists non-react statics of the composed component', () => {
-    class Foo extends Component {
-      render() {
-        return <div />
-      }
-    }
-    Foo.someStaticProperty = true
-
-    const decorated = withStyles('')(Foo)
-    expect(decorated.someStaticProperty).toBe(true)
-  })
-
-  it('Does not hoist react statics of the composed component', () => {
-    class Foo extends Component {
-      render() {
-        return <div />
-      }
-    }
-    Foo.propTypes = true
-
-    const decorated = withStyles('')(Foo)
-    expect(decorated.propTypes).not.toBeDefined()
   })
 })
