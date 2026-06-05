@@ -66,7 +66,6 @@ function insertCss(styles, { replace = false, prepend = false, prefix = 's' } = 
       create = true
 
       elem = document.createElement('style')
-      elem.setAttribute('type', 'text/css')
       elem.id = id
 
       if (media) {
