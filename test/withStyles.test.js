@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 /**
  * Isomorphic CSS style loader for Webpack
  *

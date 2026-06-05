@@ -22,6 +22,8 @@ function useStyles(...styles) {
     }
   }
   if (isBrowser) {
+    // isBrowser never changes at runtime, so the hook call order is stable
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useLayoutEffect(runEffect, [])
   } else {
     runEffect()
