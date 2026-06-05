@@ -25,4 +25,4 @@ function createUniqueIdentifiers(identifiers) {
   })
 }
 
-module.exports = createUniqueIdentifiers
+export default createUniqueIdentifiers

@@ -7,7 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const createUniqueIdentifiers = require('./createUniqueIdentifiers')
+import createUniqueIdentifiers from './createUniqueIdentifiers'
 
 const inserted = {}
 

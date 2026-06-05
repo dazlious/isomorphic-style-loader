@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "isomorphic-style-loader",
-  "version": "5.4.0",
+  "version": "6.0.0",
   "description": "CSS style loader for Webpack optimized for critical path CSS rendering and isomoprhic web apps",
   "repository": "kriasoft/isomorphic-style-loader",
   "author": "Kriasoft <hello@kriasoft.com> (https://www.kriasoft.com)",
@@ -31,7 +30,22 @@
     "critical-path-css",
     "critical path css"
   ],
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./withStyles": "./dist/withStyles.js",
+    "./withStyles.js": "./dist/withStyles.js",
+    "./useStyles": "./dist/useStyles.js",
+    "./useStyles.js": "./dist/useStyles.js",
+    "./StyleContext": "./dist/StyleContext.js",
+    "./StyleContext.js": "./dist/StyleContext.js",
+    "./insertCss": "./dist/insertCss.js",
+    "./insertCss.js": "./dist/insertCss.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "hoist-non-react-statics": "^3.0.0",
     "loader-utils": "^1.4.2",
@@ -71,6 +85,7 @@
     "lint": "node tools/lint",
     "test": "node tools/test",
     "build": "node tools/build",
+    "prepublishOnly": "node tools/lint && node tools/test && node tools/build",
     "pre-commit": "node tools/pre-commit"
   }
 }

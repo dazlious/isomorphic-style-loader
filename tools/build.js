@@ -14,7 +14,6 @@ const babel = require('rollup-plugin-babel')
 const { uglify } = require('rollup-plugin-uglify')
 const commonjs = require('rollup-plugin-commonjs')
 const nodeResolve = require('rollup-plugin-node-resolve')
-const pkg = require('../package.json')
 
 // The source files to be compiled by Rollup
 const files = [
@@ -55,12 +54,8 @@ async function build() {
   // Clean up the output directory
   await fs.emptyDir('dist')
 
-  // Copy source code, readme and license
-  await Promise.all([
-    fs.copy('src', 'dist/src'),
-    fs.copy('README.md', 'dist/README.md'),
-    fs.copy('LICENSE.txt', 'dist/LICENSE.txt'),
-  ])
+  // Copy source code (referenced by the generated source maps)
+  await fs.copy('src', 'dist/src')
 
   // Compile source code into a distributable format with Babel
   await Promise.all(
@@ -105,13 +100,6 @@ async function build() {
       })
     }),
   )
-
-  // Create package.json for npm publishing
-  const libPkg = { ...pkg, main: 'index.js' }
-  delete libPkg.private
-  delete libPkg.devDependencies
-  delete libPkg.scripts
-  await fs.outputJson('dist/package.json', libPkg, { spaces: 2 })
 }
 
 module.exports = build()
