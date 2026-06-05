@@ -7,9 +7,9 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React, { Component, Children } from 'react'
+import React, { Component, Children, act } from 'react'
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import useStyles from '../src/useStyles'
 import StyleContext from '../src/StyleContext'
 
@@ -39,13 +39,17 @@ describe('useStyles(...styles)', () => {
     const insertCss = jest.fn(() => {})
     const container = global.document.createElement('div')
 
-    ReactDOM.render(
-      <Provider insertCss={insertCss}>
-        <FooWithStyles />
-      </Provider>,
-      container,
-    )
-    ReactDOM.unmountComponentAtNode(container)
+    const root = createRoot(container)
+    act(() => {
+      root.render(
+        <Provider insertCss={insertCss}>
+          <FooWithStyles />
+        </Provider>,
+      )
+    })
+    act(() => {
+      root.unmount()
+    })
     expect(insertCss).toBeCalledTimes(1)
   })
 })

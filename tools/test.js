@@ -13,6 +13,9 @@ const jestConfig = {
   testEnvironment: 'jsdom',
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testMatch: ['**/*.test.js'],
+  globals: {
+    IS_REACT_ACT_ENVIRONMENT: true,
+  },
 }
 
 async function test() {
