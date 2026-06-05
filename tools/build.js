@@ -10,10 +10,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const rollup = require('rollup')
-const babel = require('rollup-plugin-babel')
-const { uglify } = require('rollup-plugin-uglify')
-const commonjs = require('rollup-plugin-commonjs')
-const nodeResolve = require('rollup-plugin-node-resolve')
+const { babel } = require('@rollup/plugin-babel')
 
 // The source files to be compiled by Rollup
 const files = [
@@ -21,7 +18,6 @@ const files = [
     input: 'dist/src/index.js',
     output: 'dist/index.js',
     format: 'cjs',
-    external: ['loader-utils'],
   },
   {
     input: 'dist/src/withStyles.js',
@@ -64,8 +60,8 @@ async function build() {
         input: file.input,
         external: file.external,
         plugins: [
-          ...(file.format === 'umd' ? [nodeResolve({ browser: true }), commonjs()] : []),
           babel({
+            babelHelpers: 'bundled',
             babelrc: false,
             presets: [
               '@babel/preset-react',
@@ -81,21 +77,18 @@ async function build() {
             ],
             comments: false,
           }),
-          ...(file.output.endsWith('.min.js') ? [uglify({ output: { comments: '/^!/' } })] : []),
         ],
       })
 
-      bundle.write({
+      await bundle.write({
         file: file.output,
         format: file.format,
-        interop: false,
+        interop: 'default',
         sourcemap: true,
-        name: file.name,
         banner:
           '/*! Isomorphic Style Loader' +
           ' | MIT License' +
           ' | https://github.com/kriasoft/isomorphic-style-loader */\n',
-        globals: file.globals,
         paths: file.paths,
       })
     }),

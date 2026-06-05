@@ -103,4 +103,4 @@ function insertCss(styles, { replace = false, prepend = false, prefix = 's' } = 
   return removeCss.bind(null, ids)
 }
 
-module.exports = insertCss
+export default insertCss
